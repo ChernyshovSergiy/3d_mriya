@@ -289,7 +289,11 @@
                                 dark
                                 icon
                             >
-                                <v-icon size="24px">{{ icon }}</v-icon>
+                                <!--<v-icon size="24px">{{ icon }}</v-icon>-->
+                                <fa
+                                    :icon="['fab', `${icon}`]"
+                                    style="font-size: 24px"
+                                />
                             </v-btn>
                         </v-flex>
                     </v-layout>
@@ -305,24 +309,24 @@ export default {
     data() {
         return {
             icons: [
-                'fab fa-facebook-f',
-                'fab fa-twitter',
-                'fab fa-github',
-                'fab fa-google-plus-g',
-                'fab fa-pinterest',
-                'fab fa-instagram',
-                'fab fa-linkedin-in',
-                'fas fa-globe',
-                'fab fa-reddit-alien',
-                'fab fa-vimeo-v',
-                'fab fa-vk',
-                'fab fa-odnoklassniki',
-                'fab fa-youtube'
+                'facebook-f',
+                'twitter',
+                'github',
+                'google-plus-g',
+                'pinterest',
+                'instagram',
+                'linkedin-in',
+                'dribbble',
+                'reddit-alien',
+                'vimeo-v',
+                'vk',
+                'odnoklassniki',
+                'youtube'
             ],
             first_menu_sections: {
                 title: 'Our company',
                 points: [
-                    { point: 'About Us', to: '/about_us' },
+                    { point: 'About Us', to: '/about' },
                     { point: 'Careers', to: '/careers' },
                     { point: 'Press/Media', to: '/media' },
                     { point: 'Investor relations', to: '/investors' }

@@ -34,24 +34,45 @@ export default {
     /*
      ** Customize the progress-bar color
      */
-    loading: { color: '#fff' },
+    loading: { color: '#ffea04' },
 
     /*
      ** Global CSS
      */
-    css: ['~/assets/style/app.styl'],
+    css: [
+        '~/assets/style/app.styl',
+        '~/assets/style/main.css',
+        'swiper/dist/css/swiper.css'
+    ],
 
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: ['@/plugins/vuetify'],
+    plugins: ['@/plugins/vuetify', { src: '~/plugins/swiper.js', ssr: false }],
 
     /*
      ** Nuxt.js modules
      */
     modules: [
+        [
+            'nuxt-fontawesome',
+            {
+                component: 'fa',
+                imports: [
+                    {
+                        set: '@fortawesome/free-brands-svg-icons',
+                        icons: ['fab']
+                    },
+                    {
+                        set: '@fortawesome/free-solid-svg-icons',
+                        icons: ['fas']
+                    }
+                ]
+            }
+        ],
         // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios'
+        '@nuxtjs/axios',
+        'vue-scrollto/nuxt'
     ],
     /*
      ** Axios module configuration
@@ -64,6 +85,7 @@ export default {
      ** Build configuration
      */
     build: {
+        vendor: ['vue-awesome-swiper'],
         transpile: ['vuetify/lib'],
         plugins: [new VuetifyLoaderPlugin()],
         loaders: {
