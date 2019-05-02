@@ -1,46 +1,62 @@
 <template>
-    <v-card class="my-3 py-1 elevation-12">
-        <div v-swiper:mySwiper="swiperOption">
-            <div class="swiper-wrapper">
-                <!-- slides -->
-                <div
-                    v-for="(slide, imageIndex) in PaintModels"
-                    :key="imageIndex"
-                    class="swiper-slide"
-                    @click="index = imageIndex"
-                >
-                    <v-avatar tile="tile" size="100%">
-                        <img
-                            :src="
-                                require('@/assets/images/finishedModel/' +
-                                    `${slide.image}`)
-                            "
-                        />
-                    </v-avatar>
+    <div>
+        <!--<gallery :images="images" :index="index" @close="index = null" />-->
+        <v-card class="my-3 py-1 elevation-12">
+            <div v-swiper:mySwiper="swiperOption">
+                <div class="swiper-wrapper">
+                    <!-- slides -->
+                    <div
+                        v-for="(image, imageIndex) in images"
+                        :key="imageIndex"
+                        class="swiper-slide"
+                        :style="{
+                            backgroundImage:
+                                'url(' +
+                                '_nuxt/assets/images/finishedModel/' +
+                                `${image.image}` +
+                                ')',
+                            width: '300px',
+                            height: 'auto'
+                        }"
+                        @click="index = imageIndex"
+                    >
+                        <v-avatar tile="tile" size="100%">
+                            <img
+                                :src="
+                                    require('@/assets/images/finishedModel/' +
+                                        `${image.image}`)
+                                "
+                            />
+                        </v-avatar>
+                    </div>
+                </div>
+                <!-- Optional controls -->
+                <div slot="pagination" class="swiper-pagination"></div>
+                <div slot="button-prev" class="swiper-button-prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
+                        <path
+                            d="M0,22L22,0l2.1,2.1L4.2,22l19.9,19.9L22,44L0,22L0,22L0,22z"
+                        ></path>
+                    </svg>
+                </div>
+                <div slot="button-next" class="swiper-button-next">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
+                        <path
+                            d="M27,22L27,22L5,44l-2.1-2.1L22.8,22L2.9,2.1L5,0L27,22L27,22z"
+                        ></path>
+                    </svg>
                 </div>
             </div>
-            <!-- Optional controls -->
-            <div slot="pagination" class="swiper-pagination"></div>
-            <div slot="button-prev" class="swiper-button-prev">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
-                    <path
-                        d="M0,22L22,0l2.1,2.1L4.2,22l19.9,19.9L22,44L0,22L0,22L0,22z"
-                    ></path>
-                </svg>
-            </div>
-            <div slot="button-next" class="swiper-button-next">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44">
-                    <path
-                        d="M27,22L27,22L5,44l-2.1-2.1L22.8,22L2.9,2.1L5,0L27,22L27,22z"
-                    ></path>
-                </svg>
-            </div>
-        </div>
-    </v-card>
+        </v-card>
+    </div>
 </template>
 
 <script>
 export default {
+    name: 'SwiperImagesCarousel2',
+    // components: {
+    //     gallery: VueGallery
+    // },
     data() {
         return {
             swiperOption: {
@@ -82,7 +98,8 @@ export default {
                 },
                 themeColor: '#ffce0b'
             },
-            PaintModels: [
+            path: '~assets/images/finishedModel/',
+            images: [
                 {
                     image: 'Grek.jpg'
                 },
@@ -125,7 +142,8 @@ export default {
                 {
                     image: 'Varvar.jpg'
                 }
-            ]
+            ],
+            index: null
         }
     },
     methods: {
@@ -146,6 +164,14 @@ export default {
 </script>
 
 <style scoped>
+.image {
+    float: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 1px solid #ebebeb;
+    margin: 5px;
+}
 .my-swiper {
     height: 300px;
     width: 100%;

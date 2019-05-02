@@ -33,6 +33,7 @@ import Painting from '~/components/Painting.vue'
 import SwiperImagesCarousel2 from '~/components/SwiperImagesCarousel2.vue'
 
 export default {
+    name: 'Home',
     components: {
         HomeStartScreen,
         HomeIntroduction,

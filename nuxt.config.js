@@ -36,6 +36,10 @@ export default {
      */
     loading: { color: '#ffea04' },
 
+    router: {
+        middleware: ['clearValidationErrors']
+    },
+
     /*
      ** Global CSS
      */
@@ -48,8 +52,42 @@ export default {
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: ['@/plugins/vuetify', { src: '~/plugins/swiper.js', ssr: false }],
+    plugins: [
+        '@/plugins/vuetify',
+        './plugins/mixins/validation',
+        './plugins/mixins/user',
+        './plugins/axios',
+        // './plugins/auth',
+        { src: '~/plugins/swiper.js', ssr: false },
+        { src: '~/plugins/vue-gallery.js', ssr: false }
+    ],
 
+    auth: {
+        strategies: {
+            local: {
+                endpoints: {
+                    login: {
+                        url: 'auth/login',
+                        method: 'post',
+                        propertyName: 'token'
+                    },
+                    logout: { url: 'auth/logout', method: 'get' },
+                    user: {
+                        url: 'user',
+                        method: 'get',
+                        propertyName: 'data'
+                    }
+                }
+                // tokenRequired: true,
+                // tokenType: 'bearer'
+            }
+        },
+        redirect: {
+            login: '/sign-in',
+            logout: '/',
+            home: '/'
+        }
+    },
     /*
      ** Nuxt.js modules
      */
@@ -72,20 +110,28 @@ export default {
         ],
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
+        '@nuxtjs/auth',
         'vue-scrollto/nuxt'
+        // [
+        //     'nuxt-validate',
+        //     {
+        //         lang: 'ru'
+        //     }
+        // ]
     ],
     /*
      ** Axios module configuration
      */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
+        baseURL: 'http://127.0.0.1:9090/api/v1'
     },
 
     /*
      ** Build configuration
      */
     build: {
-        vendor: ['vue-awesome-swiper'],
+        // vendor: ['vue-awesome-swiper'],
         transpile: ['vuetify/lib'],
         plugins: [new VuetifyLoaderPlugin()],
         loaders: {
@@ -107,5 +153,6 @@ export default {
                 })
             }
         }
+        // extractCSS: true
     }
 }

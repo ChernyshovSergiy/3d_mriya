@@ -12,6 +12,7 @@
                     <v-layout row wrap justify-space-around align-center>
                         <v-flex xs8 sm6 md3 class="px-3">
                             <v-btn
+                                :to="printing"
                                 outline
                                 block
                                 large
@@ -146,6 +147,7 @@
                                 v-scroll-to="'#Introduction'"
                                 fab
                                 class="mb-1 transparent"
+                                flat
                             >
                                 <v-icon large color="yellow"
                                     >expand_more</v-icon
@@ -165,6 +167,7 @@ export default {
     data: () => ({
         isLoading: false,
         items: [],
+        printing: '/order',
         categories: [
             { title: 'Miniatures' },
             { title: 'Jewelry Model' },
@@ -210,7 +213,7 @@ export default {
 
 <style scoped>
 .home-hero {
-    background: url('../assets/images/Masaraty.jpg');
+    background: url('~assets/images/Masaraty.jpg');
     background-size: cover;
     /*width: 100%;*/
     height: 100%;

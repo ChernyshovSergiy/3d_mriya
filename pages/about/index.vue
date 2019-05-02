@@ -46,6 +46,7 @@
 // import FooterComp from '@/components/FooterComp.vue'
 
 export default {
+    middleware: 'auth',
     name: 'Index',
     components: {
         // FooterComp

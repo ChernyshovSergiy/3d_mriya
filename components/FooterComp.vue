@@ -304,8 +304,13 @@
 </template>
 
 <script>
+import { VTextField, VSelect } from 'vuetify/lib'
 export default {
     name: 'FooterComp',
+    components: {
+        VTextField,
+        VSelect
+    },
     data() {
         return {
             icons: [

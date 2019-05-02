@@ -2,9 +2,6 @@
     <v-app>
         <app-navigation />
         <nuxt />
-        <!--<v-footer :fixed="fixed">-->
-        <!--<span>&copy; 2019</span>-->
-        <!--</v-footer>-->
         <footer-comp />
         <app-fab />
     </v-app>
