@@ -111,6 +111,7 @@
                             color="primary"
                             flat
                             outline
+                            :loading="loading"
                             @click="requestResetPassword"
                             >Restore</v-btn
                         >
@@ -179,6 +180,7 @@ export default {
             dialog2: false,
             massage: '',
             indeterminate: false,
+            loading: false,
             form: {
                 name: '',
                 email: '',
@@ -215,6 +217,7 @@ export default {
         },
         async requestResetPassword() {
             this.indeterminate = true
+            this.loading = true
             try {
                 await this.$axios
                     .post('/auth/reset-password', { email: this.form.email })
@@ -222,6 +225,7 @@ export default {
                         result => {
                             this.response = result.data
                             console.log('my result: ', result.data)
+                            this.loading = false
                             this.indeterminate = false
                             this.dialog = false
                             this.dialog2 = true

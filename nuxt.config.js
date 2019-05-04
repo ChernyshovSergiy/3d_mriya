@@ -57,6 +57,7 @@ export default {
         './plugins/mixins/validation',
         './plugins/mixins/user',
         './plugins/axios',
+        './plugins/vue-flag-icon',
         // './plugins/auth',
         { src: '~/plugins/swiper.js', ssr: false },
         { src: '~/plugins/vue-gallery.js', ssr: false }
@@ -132,7 +133,7 @@ export default {
      */
     build: {
         // vendor: ['vue-awesome-swiper'],
-        transpile: ['vuetify/lib'],
+        transpile: ['vuetify/lib', 'vue-flag-icon'],
         plugins: [new VuetifyLoaderPlugin()],
         loaders: {
             stylus: {

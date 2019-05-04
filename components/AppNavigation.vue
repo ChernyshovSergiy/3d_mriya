@@ -81,6 +81,7 @@
             </nuxt-link>
             <v-btn flat class="hidden-sm-and-down" to="/about">Menu</v-btn>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
+
             <div v-if="!authenticated" class="hidden-sm-and-down">
                 <v-btn flat to="/sign-in">SIGN IN</v-btn>
                 <v-btn color="blue-grey darken-4" to="/join">JOIN</v-btn>
@@ -130,18 +131,77 @@
                     </v-menu>
                 </div>
             </div>
+            <div class="text-xs-center">
+                <v-menu offset-y>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-for="(languag, i) in filteredLanguage"
+                            :key="i"
+                            v-model="language"
+                            class="pa-0"
+                            depressed
+                            large
+                            flat
+                            v-on="on"
+                        >
+                            <v-flex
+                                id="flag"
+                                align-center
+                                justify-center
+                                layout
+                            >
+                                <flag
+                                    :iso="languag.flagCountry"
+                                    :squared="false"
+                                    :title="languag.title"
+                                />
+                                <v-icon dark right>expand_more</v-icon>
+                            </v-flex>
+                        </v-btn>
+                    </template>
+                    <v-list
+                        v-for="(item, index) in languages"
+                        :key="index"
+                        dark
+                        class="blue-grey darken-4 white--text pa-0"
+                    >
+                        <v-list-tile
+                            v-show="item.language !== locale"
+                            @click="changeLanguage(item.language)"
+                        >
+                            <v-list-tile-action>
+                                <flag
+                                    :iso="item.flagCountry"
+                                    :squared="false"
+                                    :title="item.title"
+                                />
+                            </v-list-tile-action>
+
+                            <v-list-tile-content>
+                                <v-list-tile-title
+                                    v-text="item.title"
+                                ></v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
+            </div>
         </v-toolbar>
     </span>
 </template>
 
 <script>
+// import { mapMutations } from 'vuex'
+
 export default {
     name: 'AppNavigation',
     data() {
         return {
+            tile: true,
             appTitle3: '3D',
             appTitle: 'Mriya',
             drawer: false,
+            language: '',
             items: [
                 { title: 'Menu', icon: 'home', url: '/about' },
                 { title: 'Profile', icon: 'face', url: '/about' },
@@ -151,6 +211,18 @@ export default {
             private: [
                 { title: 'Profile', icon: 'face', url: '/about' },
                 { title: 'Logout', icon: 'lock', url: '/sign-in' }
+            ],
+            languages: [
+                { flagCountry: 'gb', language: 'en', title: 'English' },
+                { flagCountry: 'es', language: 'es', title: 'Español' },
+                { flagCountry: 'ru', language: 'ru', title: 'Русский' },
+                { flagCountry: 'ua', language: 'ua', title: 'Український' },
+                { flagCountry: 'de', language: 'de', title: 'Deutsch' },
+                { flagCountry: 'it', language: 'it', title: 'Italiano' },
+                { flagCountry: 'fr', language: 'fr', title: 'Le français' },
+                { flagCountry: 'sa', language: 'sa', title: 'العربية' },
+                { flagCountry: 'cn', language: 'cn', title: '中国' },
+                { flagCountry: 'jp', language: 'jp', title: '日本語' }
             ]
         }
     },
@@ -158,11 +230,34 @@ export default {
         isAuthenticated() {
             // return this.$store.getters.isAuthenticated
             return false
+        },
+        locales() {
+            // console.log(this.$store.state.lang.locales)
+            return this.$store.state.lang.locales
+        },
+        locale() {
+            // console.log(this.$store.state.lang.locale)
+            return this.$store.state.lang.locale
+        },
+        current() {
+            return 'languages.' + this.$store.state.lang.locale + '.flagCountry'
+        },
+        filteredLanguage: function() {
+            const lang = this.$store.state.lang.locale
+            return this.languages.filter(function(elem) {
+                if (lang === '') return true
+                else return elem.language.indexOf(lang) > -1
+            })
         }
     },
+
     methods: {
         logout() {
             this.$auth.logout()
+        },
+        changeLanguage(locale) {
+            this.$store.dispatch('lang/setLanguage', locale)
+            console.log(this.$store.getters['lang/locale'])
         }
     }
 }
@@ -172,5 +267,10 @@ export default {
 a {
     color: white;
     text-decoration: none;
+}
+#flag {
+    font-size: 30px;
+    padding: 0;
+    margin-top: 0;
 }
 </style>
