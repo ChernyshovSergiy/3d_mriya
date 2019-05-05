@@ -13,6 +13,9 @@ import FooterComp from '@/components/FooterComp.vue'
 import AppFab from '@/components/AppFab.vue'
 
 export default {
+    head() {
+        return this.$nuxtI18nSeo()
+    },
     components: {
         AppNavigation,
         FooterComp,

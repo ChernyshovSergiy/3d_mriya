@@ -12,7 +12,7 @@
                     <v-list-tile @click="drawer = !drawer">
                         <v-list-tile-title class="title"
                             ><v-icon left>menu</v-icon>
-                            {{ $t('menu') }}
+                            MENU
                         </v-list-tile-title>
                     </v-list-tile>
                 </v-list>
@@ -25,7 +25,7 @@
                         :key="index"
                         active-class="yellow--text"
                         router
-                        :to="localePath(item.url)"
+                        :to="item.url"
                     >
                         <v-list-tile-action>
                             <v-icon>{{ item.icon }}</v-icon>
@@ -40,10 +40,7 @@
                     <v-divider :key="`divider-${index}`"></v-divider>
                 </template>
                 <template v-if="authenticated">
-                    <v-list-tile
-                        active-class="yellow--text"
-                        :to="localePath('about')"
-                    >
+                    <v-list-tile active-class="yellow--text" to="/about">
                         <v-list-tile-action>
                             <v-icon>face</v-icon>
                         </v-list-tile-action>
@@ -76,26 +73,18 @@
                 @click="drawer = !drawer"
             ></v-toolbar-side-icon>
             <v-spacer class="hidden-md-and-up"></v-spacer>
-            <nuxt-link :to="localePath('index')">
+            <nuxt-link to="/">
                 <v-toolbar-title class="yellow--text">
                     <span class="font-weight-light">{{ appTitle3 }}</span>
                     <span>{{ appTitle }}</span>
                 </v-toolbar-title>
             </nuxt-link>
-            <v-btn
-                flat
-                class="hidden-sm-and-down"
-                :to="localePath('about')"
-                nuxt
-                >{{ $t('menu') }}</v-btn
-            >
+            <v-btn flat class="hidden-sm-and-down" to="/about">Menu</v-btn>
             <v-spacer class="hidden-sm-and-down"></v-spacer>
 
             <div v-if="!authenticated" class="hidden-sm-and-down">
-                <v-btn flat :to="localePath('sign-in')" nuxt>SIGN IN</v-btn>
-                <v-btn color="blue-grey darken-4" :to="localePath('join')" nuxt
-                    >JOIN</v-btn
-                >
+                <v-btn flat to="/sign-in">SIGN IN</v-btn>
+                <v-btn color="blue-grey darken-4" to="/join">JOIN</v-btn>
             </div>
             <div v-else class="hidden-sm-and-down">
                 <div class="text-xs-center">
@@ -106,23 +95,24 @@
                                 <v-icon dark>expand_more</v-icon>
                             </v-btn>
                         </template>
-                        <v-list dark class="blue-grey darken-4 white--text pa-0"
-                            ><nuxt-link :to="localePath('about')">
-                                <v-list-tile
-                                    active-class="yellow--text"
-                                    to="/about"
-                                >
-                                    <v-list-tile-action>
-                                        <v-icon>face</v-icon>
-                                    </v-list-tile-action>
+                        <v-list
+                            dark
+                            class="blue-grey darken-4 white--text pa-0"
+                        >
+                            <v-list-tile
+                                active-class="yellow--text"
+                                to="/about"
+                            >
+                                <v-list-tile-action>
+                                    <v-icon>face</v-icon>
+                                </v-list-tile-action>
 
-                                    <v-list-tile-content>
-                                        <v-list-tile-title
-                                            v-text="'Profile'"
-                                        ></v-list-tile-title>
-                                    </v-list-tile-content>
-                                </v-list-tile>
-                            </nuxt-link>
+                                <v-list-tile-content>
+                                    <v-list-tile-title
+                                        v-text="'Profile'"
+                                    ></v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
                             <v-list-tile
                                 active-class="yellow--text"
                                 @click="logout"
@@ -163,34 +153,36 @@
                                 <flag
                                     :iso="languag.flagCountry"
                                     :squared="false"
-                                    :title="languag.name"
+                                    :title="languag.title"
                                 />
                                 <v-icon dark right>expand_more</v-icon>
                             </v-flex>
                         </v-btn>
                     </template>
-                    <v-list dark class="blue-grey darken-4 white--text pa-0"
-                        ><nuxt-link
-                            v-for="loc in availableLocales"
-                            :key="loc.code"
-                            :to="switchLocalePath(loc.code)"
+                    <v-list
+                        v-for="(item, index) in languages"
+                        :key="index"
+                        dark
+                        class="blue-grey darken-4 white--text pa-0"
+                    >
+                        <v-list-tile
+                            v-show="item.language !== locale"
+                            @click="changeLanguage(item.language)"
                         >
-                            <v-list-tile>
-                                <v-list-tile-action>
-                                    <flag
-                                        :iso="loc.flagCountry"
-                                        :squared="false"
-                                        :title="loc.name"
-                                    />
-                                </v-list-tile-action>
+                            <v-list-tile-action>
+                                <flag
+                                    :iso="item.flagCountry"
+                                    :squared="false"
+                                    :title="item.title"
+                                />
+                            </v-list-tile-action>
 
-                                <v-list-tile-content>
-                                    <v-list-tile-title
-                                        v-text="loc.name"
-                                    ></v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                        </nuxt-link>
+                            <v-list-tile-content>
+                                <v-list-tile-title
+                                    v-text="item.title"
+                                ></v-list-tile-title>
+                            </v-list-tile-content>
+                        </v-list-tile>
                     </v-list>
                 </v-menu>
             </div>
@@ -211,10 +203,10 @@ export default {
             drawer: false,
             language: '',
             items: [
-                { title: 'Menu', icon: 'home', url: 'about' },
-                { title: 'Profile', icon: 'face', url: 'about' },
-                { title: 'Sign In', icon: 'lock', url: 'sign-in' },
-                { title: 'Join', icon: 'input', url: 'join' }
+                { title: 'Menu', icon: 'home', url: '/about' },
+                { title: 'Profile', icon: 'face', url: '/about' },
+                { title: 'Sign In', icon: 'lock', url: '/sign-in' },
+                { title: 'Join', icon: 'input', url: '/join' }
             ],
             private: [
                 { title: 'Profile', icon: 'face', url: '/about' },
@@ -239,17 +231,30 @@ export default {
             // return this.$store.getters.isAuthenticated
             return false
         },
-        filteredLanguage: function() {
-            return this.$i18n.locales.filter(i => i.code === this.$i18n.locale)
+        locales() {
+            // console.log(this.$store.state.lang.locales)
+            return this.$store.state.lang.locales
         },
-        availableLocales() {
-            return this.$i18n.locales.filter(i => i.code !== this.$i18n.locale)
+        locale() {
+            // console.log(this.$store.state.lang.locale)
+            return this.$store.state.lang.locale
+        },
+        filteredLanguage: function() {
+            const lang = this.$store.state.lang.locale
+            return this.languages.filter(function(elem) {
+                if (lang === '') return true
+                else return elem.language.indexOf(lang) > -1
+            })
         }
     },
 
     methods: {
         logout() {
             this.$auth.logout()
+        },
+        changeLanguage(locale) {
+            this.$store.dispatch('lang/setLanguage', locale)
+            console.log(this.$store.getters['lang/locale'])
         }
     }
 }
