@@ -11,17 +11,28 @@
                 <div class="mb-3">
                     <v-layout row wrap justify-space-around align-center>
                         <v-flex xs8 sm6 md3 class="px-3">
-                            <v-btn
-                                :to="printing"
-                                outline
-                                block
-                                large
-                                class="caption yellow--text"
-                                ><v-icon left dark large>layers</v-icon>
-                                <span class="headline">Printing</span></v-btn
-                            >
+                            <v-tooltip bottom>
+                                <template #activator="{ on: tooltip }">
+                                    <v-btn
+                                        :to="localePath('printing')"
+                                        outline
+                                        block
+                                        large
+                                        nuxt
+                                        class="caption yellow--text"
+                                        v-on="{ ...tooltip }"
+                                        ><v-icon left dark large>layers</v-icon>
+                                        <span class="headline">
+                                            {{ $t('printing') }}
+                                        </span>
+                                    </v-btn>
+                                </template>
+                                <span class="yellow--text">
+                                    {{ $t('tooltipOrder') }}
+                                </span>
+                            </v-tooltip>
                         </v-flex>
-
+                        <!--<v-layout row wrap justify-center align-center>-->
                         <v-flex xs12 sm8 md6 class="blue-grey darken-4">
                             <v-autocomplete
                                 v-model="model"
@@ -34,20 +45,31 @@
                                 hide-selected
                                 item-text="name"
                                 item-value="symbol"
-                                label="Search for a coin..."
+                                :label="`${$t('searchModel')}`"
                                 outline
                                 block
                                 dark
                                 solo
                                 color="yellow"
                                 background-color="yellow"
-                                class="yellow--text"
+                                class="yellow--text ma-0 pa-0"
                             >
+                                <template v-slot:append-outer>
+                                    <v-btn
+                                        flat
+                                        durk
+                                        nuxt
+                                        class="blue-grey darken-4 yellow--text ma-0"
+                                    >
+                                        <v-icon large>search</v-icon>
+                                    </v-btn>
+                                </template>
+
                                 <template #no-data>
                                     <v-list-tile>
                                         <v-list-tile-title>
-                                            Search for your favorite
-                                            <strong>Cryptocurrency</strong>
+                                            {{ $t('searchModelList') }}
+                                            <strong>{{ $t('models') }}</strong>
                                         </v-list-tile-title>
                                     </v-list-tile>
                                 </template>
@@ -82,7 +104,20 @@
                                 </template>
                             </v-autocomplete>
                         </v-flex>
-
+                        <!--<template>-->
+                        <!--<v-btn-->
+                        <!--flat-->
+                        <!--durk-->
+                        <!--large-->
+                        <!--depressed-->
+                        <!--nuxt-->
+                        <!--class="blue-grey darken-4 yellow&#45;&#45;text ma-0 pa-0"-->
+                        <!--&gt;<v-flex align-center justify-center layout>-->
+                        <!--<v-icon large>search</v-icon>-->
+                        <!--</v-flex>-->
+                        <!--</v-btn>-->
+                        <!--</template>-->
+                        <!--</v-layout>-->
                         <v-flex xs10 sm6 md3 class="px-3">
                             <div class="text-xs-center">
                                 <!--<v-menu open-on-hover>-->
@@ -103,18 +138,18 @@
                                                     }"
                                                     ><v-icon left dark large
                                                         >storage</v-icon
-                                                    ><span class="headline"
-                                                        >Categories</span
-                                                    >
+                                                    ><span class="headline">
+                                                        {{ $t('categories') }}
+                                                    </span>
 
-                                                    <v-icon right dark
-                                                        >expand_more</v-icon
-                                                    ></v-btn
-                                                >
+                                                    <v-icon right dark>
+                                                        expand_more
+                                                    </v-icon>
+                                                </v-btn>
                                             </template>
-                                            <span class="yellow--text"
-                                                >Please select a category</span
-                                            >
+                                            <span class="yellow--text">
+                                                {{ $t('tooltipCategories') }}
+                                            </span>
                                         </v-tooltip>
                                     </template>
                                     <v-list
@@ -124,9 +159,9 @@
                                         class="blue-grey darken-4 yellow--text pa-0"
                                     >
                                         <v-list-tile @click="index">
-                                            <v-list-tile-title>{{
-                                                category.title
-                                            }}</v-list-tile-title>
+                                            <v-list-tile-title>
+                                                {{ category.title }}
+                                            </v-list-tile-title>
                                         </v-list-tile>
                                         <v-divider />
                                     </v-list>
@@ -138,7 +173,8 @@
                 <div
                     class="display-1 font-weight-light white--text text-xs-center mb-0 "
                 >
-                    <p>Stock assets to power your 3D dreams</p>
+                    <!--<p>Stock assets to power your 3D dreams</p>-->
+                    <p>{{ massage }}</p>
                 </div>
                 <div class="mt-0">
                     <v-layout column align-center class="my-2">
@@ -162,11 +198,21 @@
 </template>
 
 <script>
+import { VAutocomplete } from 'vuetify/lib'
+// import axios from 'axios'
 export default {
     name: 'HomeStartScreen',
+    components: {
+        VAutocomplete
+    },
+
+    // eslint-disable-next-line vue/require-default-prop
+    props: { massage: String },
+
     data: () => ({
         isLoading: false,
         items: [],
+        light: false,
         printing: '/order',
         categories: [
             { title: 'Miniatures' },
@@ -180,6 +226,12 @@ export default {
         loading: false,
         loading1: false
     }),
+
+    computed: {
+        locale() {
+            return this.$i18n.locale
+        }
+    },
 
     watch: {
         loader() {
@@ -206,6 +258,9 @@ export default {
                     console.log(err)
                 })
                 .finally(() => (this.isLoading = false))
+        },
+        created: function() {
+            // this.$store.dispatch('content/getContent')
         }
     }
 }

@@ -1,117 +1,120 @@
 <template>
-    <v-container grid-list-lg>
-        <v-layout row>
-            <v-flex
-                xs12
-                class="text-xs-center display-1 font-weight-lite my-5"
-                >{{ title }}</v-flex
-            >
+    <v-container fluid grid-list-lg>
+        <v-layout row justify-center>
+            <v-flex xs12 class="text-xs-center display-1 font-weight-lite my-5">
+                {{ title }}
+            </v-flex>
         </v-layout>
-        <v-layout row wrap>
-            <v-flex v-for="step in steps" :key="step.name" xs12 sm12 md4>
-                <v-hover>
-                    <v-card
-                        slot-scope="{ hover }"
-                        :class="`elevation-${hover ? 12 : 2}`"
-                        class="mx-auto"
-                    >
-                        <v-responsive>
-                            <v-img
-                                :src="
-                                    require('@/assets/images/' +
-                                        `${step.image}`)
-                                "
-                                height="100%"
-                            >
-                                <v-layout
-                                    align-end
-                                    justify-center
-                                    fill-height
-                                    pa-3
-                                    white--text
+        <v-container fluid grid-list-md>
+            <v-layout row wrap align-space-around fill-height>
+                <v-flex
+                    v-for="(step, i) in steps"
+                    :key="step.name"
+                    xs12
+                    sm12
+                    md4
+                >
+                    <v-hover>
+                        <v-card
+                            slot-scope="{ hover }"
+                            :class="`elevation-${hover ? 12 : 2}`"
+                            class="mx-auto"
+                            height="100%"
+                        >
+                            <v-responsive>
+                                <v-img
+                                    :src="
+                                        require('@/assets/images/' +
+                                            `${step.image}`)
+                                    "
+                                    height="100%"
                                 >
-                                    <div
-                                        class="title font-weight-light text-capitalize"
+                                    <v-layout
+                                        align-end
+                                        justify-center
+                                        fill-height
+                                        pa-3
+                                        white--text
                                     >
-                                        {{ step.name }}
-                                    </div>
-                                </v-layout>
-                            </v-img>
-                        </v-responsive>
-
-                        <v-card-text>
-                            <div>
+                                        <div
+                                            class="title font-weight-light text-capitalize"
+                                        >
+                                            {{ items[step.id + 0] }}
+                                        </div>
+                                    </v-layout>
+                                </v-img>
+                            </v-responsive>
+                            <v-card-text>
                                 <h3 class="headline mb-0 text-capitalize">
-                                    {{ step.title }}
+                                    {{ items[step.id + 1] }}
                                 </h3>
-                                <div>
-                                    {{ step.text }}
+                                <div class="mt-2">
+                                    {{ text[i] }}
                                 </div>
-                            </div>
-                        </v-card-text>
-                        <v-divider></v-divider>
-                        <v-spacer></v-spacer>
-                        <div>
-                            <v-card-actions
-                                v-if="['menu'].includes($route.name)"
-                            >
-                                <v-btn
-                                    outline
-                                    block
-                                    color="green"
-                                    @click="showRecipes(step.name)"
-                                    >Select This Plan</v-btn
-                                >
-                            </v-card-actions>
-
-                            <v-card-actions v-else>
+                            </v-card-text>
+                            <v-divider />
+                            <v-card-actions class="my-auto">
+                                <v-spacer />
                                 <v-btn
                                     v-scroll-to="'#' + step.title"
                                     outline
                                     color="orange"
                                     depressed
                                 >
-                                    {{ step.button }}
+                                    {{ items[step.id + 2] }}
                                 </v-btn>
                             </v-card-actions>
-                        </div>
-                    </v-card>
-                </v-hover>
-            </v-flex>
-        </v-layout>
+                        </v-card>
+                    </v-hover>
+                </v-flex>
+            </v-layout>
+        </v-container>
     </v-container>
 </template>
 
 <script>
+// import { VBanner } from 'vuetify/lib'
 export default {
     name: 'HomeProduceSteps',
+    // components: {
+    //     VBanner
+    // },
+    props: {
+        title: {
+            type: String,
+            default: ''
+        },
+        items: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        text: {
+            type: Array,
+            default() {
+                return []
+            }
+        }
+    },
     data() {
         return {
-            title: 'Home Page Produce Steps',
+            // title: 'Home Page Produce Steps',
             steps: [
                 {
-                    name: 'Step 1',
+                    id: 0,
                     title: 'Modeling',
-                    image: 'MasaratyGride.jpg',
-                    text:
-                        'The Keto diet is a high-fat, adequate-protein, low-carbohydrate diet. The diet forces the body to burn fats rather than carbohydrates by putting the body into ketosis.',
-                    button: 'select model'
+                    image: 'MasaratyGride.jpg'
                 },
                 {
-                    name: 'Step 2',
+                    id: 3,
                     title: 'Printing',
-                    image: 'MasaratyPrint.jpg',
-                    text:
-                        'The Paleo diet requires the sole or predominant consumption of foods presumed to have been the only foods available to or consumed by humans during the Paleolithic era.',
-                    button: 'print model'
+                    image: 'MasaratyPrint.jpg'
                 },
                 {
-                    name: 'Step 3',
+                    id: 6,
                     title: 'Painting',
-                    image: 'MasaratyPaint.jpg',
-                    text:
-                        'The vegan diet abstains from the use of animal products. The vegan diet does not consume meat, diary products, eggs or any all other animal-derived ingredients.',
-                    button: 'paint model'
+                    image: 'MasaratyPaint.jpg'
                 }
             ]
         }
@@ -125,4 +128,24 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.list-content {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    width: 100%;
+}
+.list-content p {
+    flex: 1 0 auto;
+}
+.border {
+    border: solid 1px #999;
+}
+.flex {
+    flex: 0 1 auto;
+}
+.grow {
+    flex-grow: 1;
+}
+</style>

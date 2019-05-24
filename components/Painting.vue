@@ -11,10 +11,10 @@
             </v-flex>
             <v-flex xs12 md6 block>
                 <v-card flat color="transparent">
-                    <v-card-title primary class="display-2"
-                        >Painting</v-card-title
-                    >
-                    <v-card-text class="subheading">{{ lorem }}</v-card-text>
+                    <v-card-title primary class="display-2">
+                        {{ title }}
+                    </v-card-title>
+                    <v-card-text class="subheading">{{ text }}</v-card-text>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -24,6 +24,16 @@
 <script>
 export default {
     name: 'Painting',
+    props: {
+        title: {
+            type: String,
+            default: ''
+        },
+        text: {
+            type: String,
+            default: ''
+        }
+    },
     data: () => ({
         lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
     })

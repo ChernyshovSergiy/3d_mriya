@@ -8,7 +8,7 @@ export default {
      ** Headers of the page
      */
     head: {
-        title: pkg.name,
+        title: '3D Mriya',
         meta: [
             { charset: 'utf-8' },
             {
@@ -58,7 +58,7 @@ export default {
         './plugins/mixins/user',
         './plugins/axios',
         './plugins/vue-flag-icon',
-        // './plugins/i18n.js',
+        './plugins/i18n.js',
         // './plugins/auth',
         { src: '~/plugins/swiper.js', ssr: false },
         { src: '~/plugins/vue-gallery.js', ssr: false }
@@ -133,11 +133,25 @@ export default {
                         name: 'Русский'
                     },
                     {
+                        flagCountry: 'es',
+                        code: 'es',
+                        iso: 'es-ES',
+                        file: 'es-ES.js',
+                        name: 'Español'
+                    },
+                    {
                         flagCountry: 'ua',
                         code: 'ua',
                         iso: 'uk-UA',
                         file: 'uk-UA.js',
                         name: 'Український'
+                    },
+                    {
+                        flagCountry: 'de',
+                        code: 'de',
+                        iso: 'de-DE',
+                        file: 'de-DE.js',
+                        name: 'Deutsch'
                     }
                 ],
 

@@ -4,9 +4,9 @@
             <v-flex xs12 md6 block text-xs-right>
                 <v-card flat color="transparent">
                     <v-card-title primary class="display-2 "
-                        ><v-spacer /> 3D Printing</v-card-title
+                        ><v-spacer /> {{ title }}</v-card-title
                     >
-                    <v-card-text class="subheading">{{ lorem }}</v-card-text>
+                    <v-card-text class="subheading">{{ text }}</v-card-text>
                 </v-card>
             </v-flex>
             <v-flex xs12 md5 block mt-5>
@@ -24,6 +24,16 @@
 <script>
 export default {
     name: 'Printing',
+    props: {
+        title: {
+            type: String,
+            default: ''
+        },
+        text: {
+            type: String,
+            default: ''
+        }
+    },
     data: () => ({
         lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
     })

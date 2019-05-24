@@ -11,11 +11,14 @@
             </v-flex>
             <v-flex xs12 md6 block>
                 <v-card flat color="transparent">
-                    <v-card-title primary class="display-2"
-                        >Modeling</v-card-title
-                    >
-                    <v-card-text class="subheading"
-                        >&emsp;&emsp;{{ lorem }}</v-card-text
+                    <v-card-title primary class="display-2 text-capitalize">
+                        {{ $t('modeling') }}
+                    </v-card-title>
+                    <v-card-text
+                        v-for="(item, i) in text"
+                        :key="i"
+                        class="subheading"
+                        >&emsp;&emsp;{{ item }}</v-card-text
                     >
                 </v-card>
             </v-flex>
@@ -26,9 +29,17 @@
 <script>
 export default {
     name: 'Modeling',
-    data: () => ({
-        lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`
-    })
+    props: {
+        text: {
+            type: Array,
+            default() {
+                return []
+            }
+        }
+    },
+    data() {
+        return {}
+    }
 }
 </script>
 

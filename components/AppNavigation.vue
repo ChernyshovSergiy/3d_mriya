@@ -50,7 +50,7 @@
 
                         <v-list-tile-content>
                             <v-list-tile-title
-                                v-text="'Profile'"
+                                v-text="`${$t('profile')}`"
                             ></v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -62,7 +62,7 @@
 
                         <v-list-tile-content>
                             <v-list-tile-title
-                                v-text="'Logout'"
+                                v-text="`${$t('logout')}`"
                             ></v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
@@ -92,9 +92,14 @@
             <v-spacer class="hidden-sm-and-down"></v-spacer>
 
             <div v-if="!authenticated" class="hidden-sm-and-down">
-                <v-btn flat :to="localePath('sign-in')" nuxt>SIGN IN</v-btn>
-                <v-btn color="blue-grey darken-4" :to="localePath('join')" nuxt
-                    >JOIN</v-btn
+                <v-btn flat :to="localePath('sign-in')" nuxt>
+                    {{ $t('signIn') }}</v-btn
+                >
+                <v-btn
+                    color="blue-grey darken-4"
+                    :to="localePath('join')"
+                    nuxt
+                    >{{ $t('join') }}</v-btn
                 >
             </div>
             <div v-else class="hidden-sm-and-down">
@@ -118,7 +123,7 @@
 
                                     <v-list-tile-content>
                                         <v-list-tile-title
-                                            v-text="'Profile'"
+                                            v-text="`${$t('profile')}`"
                                         ></v-list-tile-title>
                                     </v-list-tile-content>
                                 </v-list-tile>
@@ -133,7 +138,7 @@
 
                                 <v-list-tile-content>
                                     <v-list-tile-title
-                                        v-text="'Logout'"
+                                        v-text="`${$t('logout')}`"
                                     ></v-list-tile-title>
                                 </v-list-tile-content>
                             </v-list-tile>
@@ -175,21 +180,24 @@
                             :key="loc.code"
                             :to="switchLocalePath(loc.code)"
                         >
-                            <v-list-tile>
-                                <v-list-tile-action>
-                                    <flag
-                                        :iso="loc.flagCountry"
-                                        :squared="false"
-                                        :title="loc.name"
-                                    />
-                                </v-list-tile-action>
+                            <v-divider />
+                            <no-ssr>
+                                <v-list-tile @click="light = !light">
+                                    <v-list-tile-action>
+                                        <flag
+                                            :iso="loc.flagCountry"
+                                            :squared="false"
+                                            :title="loc.name"
+                                        />
+                                    </v-list-tile-action>
 
-                                <v-list-tile-content>
-                                    <v-list-tile-title
-                                        v-text="loc.name"
-                                    ></v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title
+                                            v-text="loc.name"
+                                        ></v-list-tile-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+                            </no-ssr>
                         </nuxt-link>
                     </v-list>
                 </v-menu>
@@ -199,8 +207,6 @@
 </template>
 
 <script>
-// import { mapMutations } from 'vuex'
-
 export default {
     name: 'AppNavigation',
     data() {
@@ -209,6 +215,7 @@ export default {
             appTitle3: '3D',
             appTitle: 'Mriya',
             drawer: false,
+            light: false,
             language: '',
             items: [
                 { title: 'Menu', icon: 'home', url: 'about' },

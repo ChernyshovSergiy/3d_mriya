@@ -170,6 +170,7 @@
 import { VTextField } from 'vuetify/lib'
 export default {
     middleware: 'guest',
+    name: 'Home',
     components: {
         VTextField
     },

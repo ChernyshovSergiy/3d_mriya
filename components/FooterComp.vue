@@ -17,9 +17,9 @@
                     <v-container>
                         <v-layout my-1 column wrap>
                             <v-flex xs12>
-                                <span class="display-2 footerTitle"
-                                    >Over 100 000 royalty-free models</span
-                                >
+                                <span class="display-2 footerTitle">
+                                    {{ $t('footer_massage') }}
+                                </span>
                             </v-flex>
                             <v-layout
                                 align-start
@@ -39,17 +39,16 @@
                                         <v-list subheader class="transparent">
                                             <v-subheader
                                                 class="font-weight-regular yellow--text title"
-                                                v-text="
-                                                    first_menu_sections.title
-                                                "
+                                                v-text="title1"
                                             ></v-subheader>
+
                                             <v-list-tile
-                                                v-for="(item,
-                                                index) in first_menu_sections.points"
+                                                v-for="(item, index) in points1"
                                                 :key="index"
-                                                :to="item.to"
+                                                :to="localePath(item.to)"
+                                                nuxt
                                                 active-class="yellow--text font-weight-medium"
-                                                @click="index"
+                                                @click="index + 10"
                                             >
                                                 <v-list-tile-title
                                                     >{{ item.point }}
@@ -90,53 +89,31 @@
                                         <v-list subheader class="transparent">
                                             <v-subheader
                                                 class="font-weight-regular yellow--text title"
-                                                v-text="
-                                                    second_menu_sections.title
-                                                "
+                                                v-text="title2"
                                             ></v-subheader>
                                             <v-list-tile
-                                                v-for="(item,
-                                                index) in second_menu_sections.points"
+                                                v-for="(item, index) in points2"
                                                 :key="`${index}-2`"
-                                                :to="item.to"
+                                                :to="localePath(item.to)"
+                                                nuxt
                                                 active-class="yellow--text font-weight-medium"
-                                                @click="index"
+                                                @click="index + 20"
                                             >
-                                                <v-list-tile-title
-                                                    >{{ item.point }}
+                                                <v-list-tile-title>
+                                                    {{ item.point }}
                                                 </v-list-tile-title>
                                             </v-list-tile>
                                             <v-subheader
                                                 class="font-weight-regular yellow--text title"
-                                                v-text="
-                                                    tree_menu_sections.title
-                                                "
+                                                v-text="title3"
                                             ></v-subheader>
                                             <v-list-tile
-                                                v-for="(item,
-                                                index) in tree_menu_sections.points"
+                                                v-for="(item, index) in points3"
                                                 :key="`${index}-3`"
                                                 active-class="yellow--text font-weight-medium"
-                                                :to="item.to"
-                                                @click="index"
-                                            >
-                                                <v-list-tile-title
-                                                    >{{ item.point }}
-                                                </v-list-tile-title>
-                                            </v-list-tile>
-                                            <v-subheader
-                                                class="font-weight-regular yellow--text title"
-                                                v-text="
-                                                    fourth_menu_sections.title
-                                                "
-                                            ></v-subheader>
-                                            <v-list-tile
-                                                v-for="(item,
-                                                index) in fourth_menu_sections.points"
-                                                :key="`${index}-4`"
-                                                active-class="yellow--text font-weight-medium"
-                                                :to="item.to"
-                                                @click="index"
+                                                :to="localePath(item.to)"
+                                                nuxt
+                                                @click="index + 30"
                                             >
                                                 <v-list-tile-title
                                                     >{{ item.point }}
@@ -156,17 +133,16 @@
                                         <v-list subheader class="transparent">
                                             <v-subheader
                                                 class="font-weight-regular yellow--text title"
-                                                v-text="
-                                                    fifth_menu_sections.title
-                                                "
+                                                v-text="title4"
                                             ></v-subheader>
                                             <v-list-tile
-                                                v-for="(item,
-                                                index) in fifth_menu_sections.points"
-                                                :key="index"
+                                                v-for="(item, index) in points4"
+                                                :key="`${index}-4`"
+                                                exact
                                                 active-class="yellow--text font-weight-black"
-                                                :to="item.to"
-                                                @click="index"
+                                                :to="localePath(item.to)"
+                                                nuxt
+                                                @click="index + 40"
                                             >
                                                 <v-list-tile-title
                                                     >{{ item.point }}
@@ -190,7 +166,7 @@
                                         >
                                             <v-subheader
                                                 class="font-weight-regular yellow--text title"
-                                                v-text="six_menu_sections.title"
+                                                v-text="`${$t('contact')}`"
                                             ></v-subheader>
                                             <v-form
                                                 ref="form"
@@ -203,7 +179,7 @@
                                                     prepend-icon="person"
                                                     :counter="10"
                                                     :rules="nameRules"
-                                                    label="Name"
+                                                    :label="`${$t('name')}`"
                                                     color="yellow"
                                                     required
                                                     flat
@@ -213,7 +189,7 @@
                                                     v-model="email"
                                                     prepend-icon="email"
                                                     :rules="emailRules"
-                                                    label="E-mail"
+                                                    :label="`${$t('email')}`"
                                                     color="yellow"
                                                     required
                                                     flat
@@ -224,7 +200,7 @@
                                                     prepend-icon="subject"
                                                     :items="subjects"
                                                     :rules="subjectRules"
-                                                    label="Subject"
+                                                    :label="`${$t('subject')}`"
                                                     color="yellow"
                                                     hide-selected
                                                     dark
@@ -237,7 +213,7 @@
                                                     prepend-icon="message"
                                                     :rules="messageRules"
                                                     color="yellow"
-                                                    label="Message"
+                                                    :label="`${$t('message')}`"
                                                     required
                                                     outline
                                                     flat
@@ -249,12 +225,13 @@
                                                     outline
                                                     rith
                                                     flat
+                                                    nuxt
                                                     @click="submit"
                                                 >
-                                                    Send
-                                                    <v-icon right dark
-                                                        >send</v-icon
-                                                    >
+                                                    {{ $t('send') }}
+                                                    <v-icon right dark>
+                                                        send
+                                                    </v-icon>
                                                 </v-btn>
                                             </v-form>
                                         </v-list>
@@ -289,7 +266,6 @@
                                 dark
                                 icon
                             >
-                                <!--<v-icon size="24px">{{ icon }}</v-icon>-->
                                 <fa
                                     :icon="['fab', `${icon}`]"
                                     style="font-size: 24px"
@@ -311,6 +287,40 @@ export default {
         VTextField,
         VSelect
     },
+    props: {
+        title1: {
+            type: String,
+            default: ''
+        },
+        points1: {
+            type: Array,
+            required: true
+        },
+        title2: {
+            type: String,
+            default: ''
+        },
+        points2: {
+            type: Array,
+            required: true
+        },
+        title3: {
+            type: String,
+            default: ''
+        },
+        points3: {
+            type: Array,
+            required: true
+        },
+        title4: {
+            type: String,
+            default: ''
+        },
+        points4: {
+            type: Array,
+            required: true
+        }
+    },
     data() {
         return {
             icons: [
@@ -328,73 +338,25 @@ export default {
                 'odnoklassniki',
                 'youtube'
             ],
-            first_menu_sections: {
-                title: 'Our company',
-                points: [
-                    { point: 'About Us', to: '/about' },
-                    { point: 'Careers', to: '/careers' },
-                    { point: 'Press/Media', to: '/media' },
-                    { point: 'Investor relations', to: '/investors' }
-                ]
-            },
-            second_menu_sections: {
-                title: 'Help',
-                points: [
-                    { point: 'Sell content', to: '/sell_content' },
-                    { point: 'FAQ', to: '/faq' }
-                ]
-            },
-            tree_menu_sections: {
-                title: 'Partner',
-                points: [
-                    { point: 'Developer', to: '/developer' },
-                    { point: 'Affiliate/Reseller', to: '/affiliate' },
-                    { point: 'International reseller', to: '/international' }
-                ]
-            },
-            fourth_menu_sections: {
-                title: 'Partner',
-                points: [
-                    { point: 'Developer', to: '/developer' },
-                    { point: 'Affiliate/Reseller', to: '/affiliate' },
-                    { point: 'International reseller', to: '/international' }
-                ]
-            },
-            fifth_menu_sections: {
-                title: '3D Mriya',
-                points: [
-                    { point: 'Home', to: '/' },
-                    { point: 'Stock model', to: '/models' },
-                    { point: 'Coupons', to: '/coupons' },
-                    { point: 'Trending topics', to: '/topics' },
-                    { point: 'Personal account', to: '/join' },
-                    { point: 'Log in/Sign up', to: '/sign-in' }
-                ]
-            },
-            six_menu_sections: {
-                title: 'Contact',
-                points: [
-                    { point: 'Home', to: '/' },
-                    { point: 'Stock model', to: '/models' },
-                    { point: 'Coupons', to: '/coupons' },
-                    { point: 'Trending topics', to: '/topics' },
-                    { point: 'Personal account', to: '/join' },
-                    { point: 'Log in/Sign up', to: '/sign-in' }
-                ]
-            },
+            title: '',
             valid: false,
             name: '',
             nameRules: [
-                v => !!v || 'Name is required',
-                v => v.length >= 3 || 'Name must be greater than 3 characters'
+                v => !!v || this.$t('name_is_required'),
+                v =>
+                    v.length >= 3 ||
+                    this.$t('name_must_be_greater_than_3_characters')
             ],
             email: '',
             emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+/.test(v) || 'E-mail must be valid'
+                v => !!v || this.$t('email_is_required'),
+                v =>
+                    /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(
+                        v
+                    ) || this.$t('email_must_be_valid')
             ],
             subject: null,
-            subjectRules: [v => !!v || 'Subject is required'],
+            subjectRules: [v => !!v || this.$t('subject_is_required')],
             subjects: [
                 'Financial',
                 'Technical',
@@ -406,9 +368,10 @@ export default {
             ],
             message: '',
             messageRules: [
-                v => !!v || 'Message is required',
+                v => !!v || this.messageRulesRequired(),
                 v =>
-                    v.length >= 5 || 'Message must be greater than 5 characters'
+                    v.length >= 5 ||
+                    this.$t('message_must_be_greater_than_5_characters')
             ],
             error: true,
             FinCards: [
@@ -439,7 +402,15 @@ export default {
             ]
         }
     },
+    // computed: {
+    //     nameRulesRequired() {
+    //         return this.$t('name_is_required')
+    //     }
+    // },
     methods: {
+        messageRulesRequired() {
+            return this.$t('message_is_required')
+        },
         submit() {
             // if (this.$refs.form.validate()) {
             //     this.$store.dispatch('userJoin', {
