@@ -1,5 +1,10 @@
 export default {
     welcome: 'Bienvenido',
+
+    // Error
+    back_home: 'Volver a la página de inicio',
+    error404: 'Error 404',
+
     // AppNavigation
     menu: 'menú',
     profile: 'perfil',

@@ -46,6 +46,7 @@
                                                 v-for="(item, index) in points1"
                                                 :key="index"
                                                 :to="localePath(item.to)"
+                                                no-prefetch
                                                 nuxt
                                                 active-class="yellow--text font-weight-medium"
                                                 @click="index + 10"

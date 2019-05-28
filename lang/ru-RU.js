@@ -1,6 +1,10 @@
 export default {
     welcome: 'Добро Пожаловать',
 
+    // Error
+    back_home: 'Вернуться на главную страницу',
+    error404: 'Ошибка 404',
+
     // AppNavigation
     menu: 'меню',
     profile: 'профайл',
